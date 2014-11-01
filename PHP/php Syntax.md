@@ -205,9 +205,9 @@ foreach：遍历数组中的每一个元素并循环代码块。只是用于数�
 	- 利用可被攻击的域受到其他域信任的特点，以受信任来源的身份请求一些平时不允许的操作，如进行不当的投票活动。
 	- 在访问量极大的一些页面上的XSS可以攻击一些小型网站，实现DDoS攻击的效果。</div>
 <br/>	
-<div style="background:#f7f7f7; padding: 16px; word-wrap:normal; font-size:85%; line-height: 1.45; border-radius:3px">在PHP当中，通常使用htmlspecialchars()来避免。<br>
+< div style="background:#f7f7f7; padding: 16px; word-wrap:normal; font-size:85%; line-height: 1.45; border-radius:3px"><span>在PHP当中，通常使用htmlspecialchars()来避免。<br>
 The htmlspecialchars() function converts special characters to HTML entities. This means that it will replace HTML characters like < and > with &lt; and &gt;. This prevents attackers from exploiting the code	by injecting HTML or Javascript code (Cross-site Scripting attacks) in forms.
-						－－Referenced from w3cSchools </div>
+						－－Referenced from w3cSchools </span></div>
 						
 3.  几种验证方式
 	- 验证名字: <pre><code>preg_match("/^[a-zA-Z ]*$/",$name)</pre></code>
