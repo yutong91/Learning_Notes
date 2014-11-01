@@ -28,8 +28,8 @@
 		?>
 6. 超全局变量(Superglobals)：在任何脚本的全部作用域中都可以直接访问，不需要用global关键字。这些超全局变量是从PHP 4.1.0中引进的。
 	- $GLOBALS:用于引用全局变量
-	- $_SERVER：
-	- $_REQUEST
+	- $_SERVER：用于获取报头、路径、脚本位置等等
+	- $_REQUEST：
 	- $_POST
 	- $_GET
 	- $_FILES
