@@ -1,3 +1,16 @@
+<script type="css/style">
+#block{
+	background:#f7f7f7; 
+	padding: 16px; 
+	word-wrap:normal; 
+	font-size:85%; 
+	line-height: 1.45; 
+	border-radius:3px; 
+	margin-top:0; 
+	margin-bottom:16px;
+}
+</script>
+
 #PHP基本语法要点整理#
 
 
@@ -195,14 +208,14 @@ foreach：遍历数组中的每一个元素并循环代码块。只是用于数�
 
 	用户能够输入斜线后执行跨站点脚本（XSS），即可以通过用户自己输入的代码而改变网站内容。
 	
-> <pre><code>XSS－> Cross-site scripting，是跨网站脚本。是网站应用程序的安全漏洞攻击，算代码注入的一种。它允许用户将代码注入到网页上，其他用户在观看网页时就会收到影响，这种攻击通常包含HTML以及用户端脚本语言。
-> 
-> 攻击者使被攻击者在浏览器中执行脚本后，如果需要收集来自被攻击者的数据，可以自行架设一个网站，让被攻击者通过Javascript等方式把手机号的数据，作为参数提交，随后以数据库等形式记录在攻击者自己的服务器上。常用的XSS的攻击手段和目的有
+<div id="block">XSS－> Cross-site scripting，是跨网站脚本。是网站应用程序的安全漏洞攻击，算代码注入的一种。它允许用户将代码注入到网页上，其他用户在观看网页时就会收到影响，这种攻击通常包含HTML以及用户端脚本语言。
+
+攻击者使被攻击者在浏览器中执行脚本后，如果需要收集来自被攻击者的数据，可以自行架设一个网站，让被攻击者通过Javascript等方式把手机号的数据，作为参数提交，随后以数据库等形式记录在攻击者自己的服务器上。常用的XSS的攻击手段和目的有
 	- 盗用 cookie ，获取敏感信息。
 	- 利用植入 Flash ，通过 crossdomain 权限设置进一步获取更高权限；或者利用Java等得到类似的操作。
 	- 利用 iframe、frame、XMLHttpRequest或上述Flash等方式，以（被攻击）用户的身份执行一些管理动作，或执行一些一般的如发微博、加好友、发私信等操作。
 	- 利用可被攻击的域受到其他域信任的特点，以受信任来源的身份请求一些平时不允许的操作，如进行不当的投票活动。
-	- 在访问量极大的一些页面上的XSS可以攻击一些小型网站，实现DDoS攻击的效果。</code></pre>
+	- 在访问量极大的一些页面上的XSS可以攻击一些小型网站，实现DDoS攻击的效果。</div>
 			
 > <pre><code>在PHP当中，通常使用htmlspecialchars()来避免。<br>
 The htmlspecialchars() function converts special characters to HTML entities. This means that it will replace HTML characters like < and > with &lt; and &gt;. This prevents attackers from exploiting the code	by injecting HTML or Javascript code (Cross-site Scripting attacks) in forms.
