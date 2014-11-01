@@ -1,8 +1,8 @@
-##PHP Server Information##
+##PHP 服务器篇##
 
 
 ###Server###
-<table width="95%" border=0 cellpadding=0 cellspacing=0 style='border-collapse:
+<table width="100%" border=0 cellpadding=0 cellspacing=0 style='border-collapse:
  collapse;table-layout:fixed;'>
  <col width="40%" span=1>
  <col width="60%">
