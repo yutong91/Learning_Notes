@@ -3,12 +3,13 @@
 ###文件打开###
 1. 最基本的function是`readfile("Path/Filename.extension")`。如果文件在当前文件夹，则不需要Path。
 2. fopen()是一个用来打开文件的更好的方法，因为他有更多的参数可以控制所要打开的文件。
+
 <table width="100%">
 	<col width="20%">
  	<col width="80%">
 	<tr>
-		<td>**模式**</td>
-		<td>**描述**</td>
+		<td>模式</td>
+		<td>描述</td>
 	</tr>
 	<tr>
 		<td>r</td>
