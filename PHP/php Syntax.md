@@ -251,6 +251,23 @@ echo "创建日期是 " . date("Y-m-d h:i:sa", $d);</code></pre>
 PHP Error的种类有很多，但是基本可以分成四个类型去概括。Fatal error, warning, parse error以及notice。
 	- Fatal Error:致命的运行时的错误，这类错误一般不可以恢复，比如内存分配。发生这类错误的时候，脚本立即停止，不再继续运行。
 	- Warning: 运行时的警告，仅仅给出错误提示，但脚本依旧运行。
-	- Parse Error：编译时语法解析错误。在分析器处产生。
+	- Parse Error：编译时语法解析错误。在分析器处产生。在用户自定义错误中，这个错误类型是不可以被选择的。
 	- Notice：运行时通知。表示脚本遇到可能会表现为错误的情况，但是在可以正常于行脚本里面也可能会有类似的通知。
-2. 
+2. 错误处理方式
+	- die()：最直接地方式表明，当发生什么情况是，系统die（类似于致命错误）。die（messages），messages即表示错误信息
+	- 自定义方式以及错误触发器
+	自定义的错误处理器至少要能确定error_level以及error_message。但是最多只能有五个参数：file,line_number以及error_context
+		- error_level：必需参数。选择一个错误报告的级别。必须是int型。php文档里提供了16种不同的错误级别（value分别从2<sup>0</sup> ~ 2<sup>15</sup>），都有对应的常量，可以直接引用。[具体列表可见](http://www.cnblogs.com/zoho/archive/2013/02/22/2922850.html)
+		- error_message：必需参数。自定义的错误信息。
+		- file：错误发生的文件名
+		- line_number：错误发生的行号
+		- error_context：错误发生时用的每个变量以及它们的值。
+3. 触发器
+	用set_error_handler("error_function_name")	来设置默认的错误处理程序
+4. 如何触发错误
+	trigger_error(message, type = E_USER_NOTICE)来触发错误。第二个参数是可选的，一共有三个选项：
+		- E_USER_ERROR：fatal error
+		- E_USER_WARNING: warning
+		- E_USER_NOTICE: notice
+5. 错误记录
+	error_log这个函数是用于向指定文件或者远程目的地发送错误记录的。
