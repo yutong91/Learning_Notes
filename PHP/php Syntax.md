@@ -29,9 +29,9 @@
 6. 超全局变量(Superglobals)：在任何脚本的全部作用域中都可以直接访问，不需要用global关键字。这些超全局变量是从PHP 4.1.0中引进的。
 	- $GLOBALS:用于引用全局变量
 	- $_SERVER：用于获取报头、路径、脚本位置等等
-	- $_REQUEST：
-	- $_POST
-	- $_GET
+	- $_REQUEST：用于收集HTML表单提交的数据。
+	- $_POST：用于收集表单提交后的表单数据(method = "post")
+	- $_GET：用于收集提交HTML表单之后的表单数据(method ="get")，也用于收集URL中发送的数据
 	- $_FILES
 	- $_ENV
 	- $_COOKIE
@@ -173,3 +173,49 @@ foreach：遍历数组中的每一个元素并循环代码块。只是用于数�
 				[2] => temp15.txt
 				[4] => temp22.txt
 			)
+
+
+###表单###
+1. Get vs. Post
+	- 相同点
+		* 都通过创建关联数组来传递数据。key时表单控件的名称，value时来自用户的输入数据
+		* $_GET 和 $_POST都是superglobals
+	- 不同点
+		- 可见性
+			* GET对任何人可见，所有的key和value都显示在URL中。
+			* POST对其他人时不可见的，key和value都嵌入在HTTP请求的主体中。
+		- 容量
+			* GET对发送的信息数量是有限制的，2000个字符左右，一般不超过2MB（1一个字符通常是1kb）。
+			* 发送的信息数量没有限制。
+	- 通常情况下，在做网络开发时，使post来发送表单数据。在MVC架构中，view中的form会标记method = post，用post发送表单数据，而在获取数据内容用以显示的时候，会用get来获取，显示在url里。
+	
+2.  $_SERVER["PHP_SELF"]
+
+	讲表单数据发送到页面本身，用于验证，这样就可以直接从表单页面获取错误提示信息。但是这个变量极容易被黑客利用攻击。
+
+	用户能够输入斜线后执行跨站点脚本（XSS），即可以通过用户自己输入的代码而改变网站内容。
+		
+		XSS－> Cross-site scripting，是跨网站脚本。是网站应用程序的安全漏洞攻击，算代码注入的一种。它允许用户将代码注入到网页上，其他用户在观看网页时就会收到影响，这种攻击通常包含HTML以及用户端脚本语言。
+		
+		攻击者使被攻击者在浏览器中执行脚本后，如果需要收集来自被攻击者的数据，可以自行架设一个网站，让被攻击者通过Javascript等方式把手机号的数据，作为参数提交，随后以数据库等形式记录在攻击者自己的服务器上。常用的XSS的攻击手段和目的有
+			- 盗用 cookie ，获取敏感信息。
+			- 利用植入 Flash ，通过 crossdomain 权限设置进一步获取更高权限；或者利用Java等得到类似的操作。
+			- 利用 iframe、frame、XMLHttpRequest或上述Flash等方式，以（被攻击）用户的身份执行一些管理动作，或执行一些一般的如发微博、加好友、发私信等操作。
+			- 利用可被攻击的域受到其他域信任的特点，以受信任来源的身份请求一些平时不允许的操作，如进行不当的投票活动。
+			- 在访问量极大的一些页面上的XSS可以攻击一些小型网站，实现DDoS攻击的效果。
+			
+	在PHP当中，通常使用htmlspecialchars()来避免。
+		
+		The htmlspecialchars() function converts special characters to HTML entities. This means that it will replace HTML characters like < and > with &lt; and &gt;. This prevents attackers from exploiting the code by injecting HTML or Javascript code (Cross-site Scripting attacks) in forms.
+						－－Referenced from w3cSchools
+3.  几种验证方式
+	- 验证名字
+	
+			preg_match("/^[a-zA-Z ]*$/",$name)
+	- Email
+	
+			preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/",$email)
+	- URL
+	
+			preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$website)
+			
