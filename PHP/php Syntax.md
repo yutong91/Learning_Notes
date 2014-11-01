@@ -1,6 +1,4 @@
-pt""">
-
-#PHP基本语法要点整理#
+#PHP 基本语法篇#
 
 
 ###变量与常量###
@@ -42,26 +40,6 @@ pt""">
 1. 常量是具有某个固定值的标识符，在脚本中无法改变，默认自动全局。
 2. 与变量不同，常量没有Dollar Sign。
 3. 用define()函数来定义。define(常量名称，常量的值，大小写敏感=false)。
-
-###函数###
-1. echo vs. print
-	- 共同点
-		- 都是语言结构(language construct)，有无括号(parentheses)都可以使用
-		- 都可以输出字符串
-	- 不同点
-		- echo可以输出一个以上的字符串，没有返回值；
-		- print也是一个函数，只能输出一个字符串，并且始终返回1。
-		- print_r是递归打印，用于打印数组。
-
-2. 常用字符串函数
-	- strlen()获取字符串长度；注意：如果用count()，返回的是1，因为count是用于返回数组长度的。这个函数会把整个string当作array里的一个元素处理，无论string有多长，都是一个元素，返回值为1.
-	- strpos()检索字符串中是否有指定的字符或者文本，找到则返回首个匹配的位置；否则返回false。
-3. 用户定义函数
-	- 用function开头，函数名必须用字母或者下划线开头，数字不可以。通常，函数名要能反映出函数的功能。
-	- 对大小写不敏感
-	- 参数用逗号隔开。可以设置参数的默认值，如果没有调用该参数，那么参数自动获取默认值。
-	- 返回值用return，可以返回多种类型。
-
 
 ###运算、循环###
 ####运算####
@@ -177,6 +155,58 @@ foreach：遍历数组中的每一个元素并循环代码块。只是用于数�
 			)
 
 
+###函数###
+1. echo vs. print
+	- 共同点
+		- 都是语言结构(language construct)，有无括号(parentheses)都可以使用
+		- 都可以输出字符串
+	- 不同点
+		- echo可以输出一个以上的字符串，没有返回值；
+		- print也是一个函数，只能输出一个字符串，并且始终返回1。
+		- print_r是递归打印，用于打印数组。
+
+2. 常用字符串函数
+	- strlen()获取字符串长度；注意：如果用count()，返回的是1，因为count是用于返回数组长度的。这个函数会把整个string当作array里的一个元素处理，无论string有多长，都是一个元素，返回值为1.
+	- strpos()检索字符串中是否有指定的字符或者文本，找到则返回首个匹配的位置；否则返回false。
+3. 用户定义函数
+	- 用function开头，函数名必须用字母或者下划线开头，数字不可以。通常，函数名要能反映出函数的功能。
+	- 对大小写不敏感
+	- 参数用逗号隔开。可以设置参数的默认值，如果没有调用该参数，那么参数自动获取默认值。
+	- 返回值用return，可以返回多种类型。
+	
+4. 日期
+	- data(format, timestamp)。
+		- format表示的是输出时间的格式，为必填项。
+			* d:表示一个月里的某天, m:表示月, Y:表示年（四位数）, 1:表示一周里的某天
+			* h: 带有首位0的12小时小时格式,i: 带有首位0的分钟,s:带有首位0的秒数, a: am/pm
+			* 	data("Y/m/d h:i:sa")<br>
+				data("Y-m-d h:i:sa")<br>
+				data("Y.m.d")<br>
+				data("1")	
+		- timestamp表示时间戳，可选项。默认就是当前的时间和日期。如果需要自定义的话，**timestamp表示秒数**，从1970/01/01 0:0:0时算起，到你需要的描述。往现在方向走，是positive number；否则为负数。
+		- data_default_timezone_set()用于设置默认时区。比如：date_default_timezone_set("Asia/Shanghai");
+	- mktime()可以用来代替timestamp。这种方式比较方便地能够确定你需要的时间。mktime(hour,minute,second,month,day,year)。举例：
+	<pre><code>$d=mktime(9, 12, 31, 6, 10, 2015);
+echo "创建日期是 " . date("Y-m-d h:i:sa", $d);</code></pre>
+	- strtotime()也是用于创建时间的，可代替timestamp。这个函数比较自然地确定时间，可以用today,now,tomorrow等表示时间的词语来确定时间，也可以描述时间。
+		- strtotime("10:38pm April 15 2015")
+		- strtotime(time,now)
+		- strtotime("tomorrow")
+		- strtotime("next Saturday")
+		- strtotime("+3 Months")
+		- strtotime("+1 week", strtotime("Sunday"))
+	- 计算时间差：将两个timestamp相减，得到时间差的秒数，然后除以相应的单位即可。
+5. Include vs. Require
+	- 相同点
+		* 两个都用于将php文件的内容插入到另一个php文件当中
+		* 都是在服务器执行这个文件之前，在其中插入所需要的文件。
+	- 不同点
+		* 错误处理方面
+			+ require会生成fatal error，并停止脚本
+			+ include会生成warning，但脚本继续运行
+		*  当include引用的文件找不到的时候，脚本会继续运行，但通常情况下，这是不应该被允许的；而require在找不到文件的时候，就会返回fatal error并停止执行脚本了。
+		* 
+	- ```尽量使用require向执行流引用关键文件，这有助于提高应用程序的安全性（security）和完整性（integrity）。如果，所引用的文件不是必须的，无论是否被找到，都不影响程序的运行，那么是需要使用include的。```
 ###表单###
 1. Get vs. Post
 	- 相同点
@@ -217,3 +247,11 @@ foreach：遍历数组中的每一个元素并循环代码块。只是用于数�
 	- Email:<pre><code>preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/",$email)</pre></code>
 	- URL:<pre><code>preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0&-9+/%=~_|]/i",$website)</pre></code>
 			
+###Error###
+1. 基本类型
+PHP Error的种类有很多，但是基本可以分成四个类型去概括。Fatal error, warning, parse error以及notice。
+	- Fatal Error:致命的运行时的错误，这类错误一般不可以恢复，比如内存分配。发生这类错误的时候，脚本立即停止，不再继续运行。
+	- Warning: 运行时的警告，仅仅给出错误提示，但脚本依旧运行。
+	- Parse Error：编译时语法解析错误。在分析器处产生。
+	- Notice：运行时通知。表示脚本遇到可能会表现为错误的情况，但是在可以正常于行脚本里面也可能会有类似的通知。
+2. 
