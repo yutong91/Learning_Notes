@@ -5,10 +5,10 @@ Communications protocal是计算机通信之间或者网络设备之间所共识
 OSI Reference Model是由ISO提出建立一个试图使各种计算机在世界范围内互联为网络的标准框架。
 
 <table width="100%">
-<col width="8%">
+<col width="5%">
 <col width="15%">
-<col width="25%">
-<col width="52%">
+<col width="30%">
+<col width="50%">
 	<tr>
 		<td align="center" colspan="4">
 		OSI Reference Model
